@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard.index');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'show'])->name('admin');
+    Route::get('/create', [AdminController::class, 'create'])->name('create');
+    Route::get('/update/{id}', [AdminController::class, 'update'])->name('update');
+    Route::get('/create/{any}', [AdminController::class, 'create']);
+    Route::post('/create/{id}', [AdminController::class, 'store'])->name('store');
+    Route::get('/switch/{id}', [AdminController::class, 'switch'])->name('switch');
+    Route::get('/delete/{id}', [AdminController::class, 'delete'])->name('delete');
 });
