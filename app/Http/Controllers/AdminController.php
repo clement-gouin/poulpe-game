@@ -22,8 +22,20 @@ class AdminController extends Controller
     {
         return view('admin.create', [
             'title' => 'Create Player',
-            'id' => 123, //TODO
+            'id' => $this->getRandomId(),
         ]);
+    }
+
+    protected function getRandomId(): int
+    {
+        $ids = Player::all()->pluck('id');
+
+        do{
+            $id = fake()->unique()->randomNumber(nbDigits: 3);
+            if (! $ids->contains($id)) {
+                return $id;
+            }
+        } while(true);
     }
 
     public function update(int $id): View
