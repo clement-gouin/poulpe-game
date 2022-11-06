@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Player;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
@@ -15,7 +16,9 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('dashboard.index');
+    return view('dashboard.index',  [
+        'players' => Player::query()->orderBy('id')->get(),
+    ]);
 });
 
 Route::prefix('admin')->group(function () {

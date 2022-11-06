@@ -54,7 +54,7 @@ class AdminController extends Controller
             'alive' => ! $player->alive,
         ]);
 
-        return Redirect::route('admin');
+        return back();
     }
 
     public function delete(int $id): RedirectResponse
