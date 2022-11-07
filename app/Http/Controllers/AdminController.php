@@ -68,6 +68,10 @@ class AdminController extends Controller
 
     public function store(Request $request, int $id): RedirectResponse
     {
+        if (! $request->hasFile('picture')) {
+            back();
+        }
+
         $path = $request->file('picture');
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = $this->scaleImageFileToBlob($path);
