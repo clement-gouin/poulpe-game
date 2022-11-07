@@ -94,19 +94,14 @@ class AdminController extends Controller
     function scaleImageFileToBlob($file)
     {
 
-        $source_pic = $file;
         $max_width = 720;
         $max_height = 720;
 
-        [$width, $height, $image_type] = getimagesize($file);
+        [$height, $width, $image_type] = getimagesize($file);
 
-        switch ($image_type)
-        {
-            case 1: $src = imagecreatefromgif($file); break;
-            case 2: $src = imagecreatefromjpeg($file);  break;
-            case 3: $src = imagecreatefrompng($file); break;
-            default: return '';  break;
-        }
+        $src = imagecreatefromjpeg($file);
+
+        $src = imagerotate($src, 90, 0);
 
         $x_ratio = $max_width / $width;
         $y_ratio = $max_height / $height;
