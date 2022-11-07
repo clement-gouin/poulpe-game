@@ -32,10 +32,11 @@
             }
 
             .player {
-                width: 6vw;
-                height: 7vw;
+                width: 6vmax;
+                height: 7vmax;
                 overflow: hidden;
-                border: .2vw solid #222;
+                border: .2vmax solid #222;
+                font-size: .9vmax;
             }
 
             .player-id {
