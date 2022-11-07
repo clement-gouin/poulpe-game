@@ -95,7 +95,7 @@ class AdminController extends Controller
     {
 
         $source_pic = $file;
-        $max_width = 480;
+        $max_width = 720;
         $max_height = 720;
 
         [$width, $height, $image_type] = getimagesize($file);
