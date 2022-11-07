@@ -16,9 +16,11 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('dashboard.index',  [
-        'players' => Player::query()->orderBy('id')->get(),
-    ]);
+    return view('dashboard.index');
+});
+
+Route::get('/players', function() {
+    return Player::query()->orderBy('id')->get();
 });
 
 Route::prefix('admin')->group(function () {
