@@ -101,7 +101,7 @@ class AdminController extends Controller
 
         $src = imagecreatefromjpeg($file);
 
-        $src = imagerotate($src, -90, 0);
+        $src = imagerotate($src, 270, 0);
 
         $x_ratio = $max_width / $width;
         $y_ratio = $max_height / $height;
