@@ -29,7 +29,6 @@
                 position: absolute;
                 top: 50%;
                 transform: translate(0, -50%);
-
             }
 
             .player {
@@ -50,7 +49,7 @@
         <div id="app" class="h-fit w-full">
             <div class="player-container flex flex-wrap items-center h-fit w-full">
                 <div v-for="player in players" v-on:click="pswitch(player.id)" :style="style" :href="'/switch/' + player.id" :class="{ dead: !player.alive }" class="block player relative border-zinc-900 rounded items-center text-center">
-                    <img :src="player.picture" />
+                    <img :src="player.picture" class="object-cover w-full h-full" />
                     <div class="player-id absolute z-90 bottom-0 left-0 right-0 font-bold text-white w-fit mx-auto px-2 rounded-t-lg" v-html="getFormatedId(player.id)"></div>
                 </div>
             </div>
