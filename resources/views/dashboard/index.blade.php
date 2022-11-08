@@ -62,31 +62,7 @@
                 data() {
                     return {
                         players: [],
-                    }
-                },
-                computed: {
-                    style() {
-                        const N = this.players.length;
-
-                        const maxW = document.body.scrollWidth;
-                        const maxH = document.body.scrollHeight;
-                        const k = 7 / 6;
-
-                        const ratio = maxH / (maxW * k);
-
-                        const ref = Array(N)
-                            .fill()
-                            .map((_, i) => i+1)
-                            .map(i => [i, Math.floor(i * ratio)])
-                            .filter(v => v[0] * v[1] > N && (v[1] * maxW * k / v[0]) < maxH)
-                            .map(v => 100 / v[0])[0];
-
-                        return {
-                            'font-size': ref * .3 / 2 + 'vw',
-                            'width': ref + 'vw',
-                            'height': ref * k + 'vw',
-                            'border-width': ref * .1 / 3 + 'vw',
-                        };
+                        style: {},
                     }
                 },
                 methods: {
@@ -98,6 +74,22 @@
                     },
                     loadData(json) {
                         this.players = json;
+                        this.computeStyle();
+                    },
+                    computeStyle() {
+                        const N = this.players.length;
+                        const W = document.body.scrollWidth;
+                        const H = document.body.scrollHeight;
+                        const r = 6 / 7;
+                        let c = Math.ceil((1 + Math.sqrt(1 + 4 * H * N * r / W)) * W / (2 * H * r));
+                        c = (N / (c-1)) === Math.floor(N / (c - 1)) ? c - 1 : c;
+                        const rw = 100 / c;
+                        this.style = {
+                            'font-size': rw * .3 / 2 + 'vw',
+                            'width': rw + 'vw',
+                            'height': (rw / r) + 'vw',
+                            'border-width': rw * .1 / 3 + 'vw',
+                        };
                     },
                     getFormatedId(id) {
                         return '#' + String(id).padStart(3, '0');
@@ -110,6 +102,7 @@
                 mounted: function() {
                     this.fetchData();
                     setInterval(this.fetchData, 1000);
+                    addEventListener('resize', this.computeStyle);
                 },
             });
 
