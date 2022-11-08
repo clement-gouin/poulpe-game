@@ -29,14 +29,12 @@
                 position: absolute;
                 top: 50%;
                 transform: translate(0, -50%);
+
             }
 
             .player {
-                width: 6vmax;
-                height: 7vmax;
                 overflow: hidden;
-                border: .2vmax solid #222;
-                font-size: .9vmax;
+                border-color: #222;
             }
 
             .player-id {
@@ -49,10 +47,12 @@
         </style>
     </head>
     <body class="tracking-wider leading-normal bg-zinc-900 w-screen h-screen">
-        <div id="app" class="player-container flex flex-wrap items-center h-fit w-full">
-            <div v-for="player in players" v-on:click="pswitch(player.id)" :href="'/switch/' + player.id" :class="{ dead: !player.alive }" class="block player relative border-zinc-900 rounded items-center text-center">
-                <img :src="player.picture" />
-                <div class="player-id absolute z-90 bottom-0 left-0 right-0 font-bold text-white w-fit mx-auto px-2 rounded-t-lg" v-html="getFormatedId(player.id)"></div>
+        <div id="app" class="h-fit w-full">
+            <div class="player-container flex flex-wrap items-center h-fit w-full">
+                <div v-for="player in players" v-on:click="pswitch(player.id)" :style="style" :href="'/switch/' + player.id" :class="{ dead: !player.alive }" class="block player relative border-zinc-900 rounded items-center text-center">
+                    <img :src="player.picture" />
+                    <div class="player-id absolute z-90 bottom-0 left-0 right-0 font-bold text-white w-fit mx-auto px-2 rounded-t-lg" v-html="getFormatedId(player.id)"></div>
+                </div>
             </div>
         </div>
         <script>
@@ -62,6 +62,31 @@
                 data() {
                     return {
                         players: [],
+                    }
+                },
+                computed: {
+                    style() {
+                        const N = this.players.length;
+
+                        const maxW = document.body.scrollWidth;
+                        const maxH = document.body.scrollHeight;
+                        const k = 7 / 6;
+
+                        const ratio = maxH / (maxW * k);
+
+                        const ref = Array(N)
+                            .fill()
+                            .map((_, i) => i+1)
+                            .map(i => [i, Math.floor(i * ratio)])
+                            .filter(v => v[0] * v[1] > N && (v[1] * maxW * k / v[0]) < maxH)
+                            .map(v => 100 / v[0])[0];
+
+                        return {
+                            'font-size': ref * .3 / 2 + 'vw',
+                            'width': ref + 'vw',
+                            'height': ref * k + 'vw',
+                            'border-width': ref * .1 / 3 + 'vw',
+                        };
                     }
                 },
                 methods: {
