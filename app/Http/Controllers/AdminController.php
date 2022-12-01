@@ -14,7 +14,8 @@ class AdminController extends Controller
     {
         return view('admin.index', [
             'title' => 'Admin Panel',
-            'players' => Player::query()->orderBy('id')->get(),
+            'players' => Player::query()->orderByDesc('alive')->orderBy('id')->get(),
+            'alive' => Player::where('alive', true)->count(),
         ]);
     }
 
