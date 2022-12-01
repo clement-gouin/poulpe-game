@@ -58,9 +58,7 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('create') }}" class="block fixed z-90 bottom-8 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white hover:bg-blue-700 duration-300">
-        <span class="text-5xl material-symbols-outlined">
-            add
-        </span>
+    <a href="{{ route('create') }}" class="block fixed z-90 bottom-8 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white font-bold hover:bg-blue-700 duration-300">
+        {{ $alive }}
     </a>
 @endsection
