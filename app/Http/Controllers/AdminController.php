@@ -77,6 +77,8 @@ class AdminController extends Controller
         }
 
         $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = null;
+
         try {
             $data = $this->scaleImageFileToBlob($path);
         } catch (ValueError) {
