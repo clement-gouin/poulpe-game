@@ -71,7 +71,7 @@ class AdminController extends Controller
     {
         $path = $request->file('picture');
 
-        if (! $request->hasFile('picture') || $path === null) {
+        if (! $request->hasFile('picture') || $path === null || $path === '') {
             back();
         }
 
