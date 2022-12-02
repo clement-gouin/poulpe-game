@@ -76,7 +76,12 @@ class AdminController extends Controller
         }
 
         $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = $this->scaleImageFileToBlob($path);
+        try {
+            $data = $this->scaleImageFileToBlob($path);
+        } catch (\Exception) {
+            back();
+        }
+
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
         $player = Player::find($id);
