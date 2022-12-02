@@ -100,7 +100,7 @@
                 },
                 mounted: function() {
                     this.fetchData();
-                    setInterval(this.fetchData, 1000);
+                    setInterval(this.fetchData, 5000);
                     addEventListener('resize', this.computeStyle);
                 },
             });
