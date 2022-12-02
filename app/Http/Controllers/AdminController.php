@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use ValueError;
 use App\Models\Player;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -78,7 +79,7 @@ class AdminController extends Controller
         $type = pathinfo($path, PATHINFO_EXTENSION);
         try {
             $data = $this->scaleImageFileToBlob($path);
-        } catch (\Exception) {
+        } catch (ValueError) {
             back();
         }
 
